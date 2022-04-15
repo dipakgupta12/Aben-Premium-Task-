@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+    <div class="header_container">
+        <div class="header_subs">
+            <h3>Welcome {{ user.username }}</h3>
+            {% if subscriptions %}
+            <p>You have {{subscriptions}} Account</p>
+            {% endif %}
+            {% if message %}
+            <p>{{message}}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="buy_sub_container">
+        <div class="trial_subs">
+            <p class="sub_text">Buy Premium membership which includes 30 days of premium service at $49.99</p>
+            {% comment %} <a class="btn btn-warning" id="button" href="/register/subscription">Buy Premium Service</a> {% endcomment %}
+            <button type="submit" class="btn btn-primary" id="submitBtn">Subscribe</button>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <p class="card-header">Sign up for 7 days Free Trial</p>
+                <a class="btn btn-primary" type="button" href="/register/trial">SignUp for Trial Member</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <p class="card-header">Sign up for Subscription for 30 days</p>
+                <a class="btn btn-primary" type="button" href="/register/subscription">SignUp For Premium Member</a>
+            </div>
+        <div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

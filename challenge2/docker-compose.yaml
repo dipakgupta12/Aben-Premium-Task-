@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+    db:
+        image: postgres:13-alpine
+        restart: always
+        ports:
+            - "5433:5432"
+        volumes:
+            - ./postgres-data:/docker-entrypoint-initdb.d
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=mydb
+        container_name: subscription-db
+
+    public_api_django:
+        build: ./.
+        container_name: Subscription
+        volumes:
+            - ./:/app/
+        command: >
+            bash -c "echo 'Applying migrations'
+            && python manage.py makemigrations
+            && python manage.py migrate
+            && echo 'Running dev server'
+            && python manage.py runserver 0.0.0.0:8000"
+        ports:
+            - "8000:8000"
+        restart: unless-stopped
+        depends_on:
+            - db        
+        stdin_open: true
+        tty: true
+volumes:
+    postgres-data:

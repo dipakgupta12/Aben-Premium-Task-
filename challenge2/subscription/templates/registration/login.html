@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <form  method="post">
+        {% csrf_token %}
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Login</div>
+                <div class="panel-body">
+                    {% if form.errors %}
+                    <label class="bg-danger p-d ml-b">{{ form.errors }}</label>
+                    {% endif %}
+                    <div class="form-group clearfix">
+                        <label for="{{ form.username.id_for_label }}" class="col-md-4 control-label text-right">Username<span class="text-red">*</span>:</label>
+                        <div class="col-md-6">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label for="{{ form.password.id_for_label }}" class="col-md-4 control-label text-right">Password<span class="text-red">*</span>:</label>
+                        <div class="col-md-6">
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-4">
+                        <input type="submit" value="Login" class="btn btn-primary">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
